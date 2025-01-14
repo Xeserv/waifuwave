@@ -1,4 +1,9 @@
-FROM ghcr.io/lecode-official/comfyui-docker:latest
+FROM anu-registry.fly.dev/runners/comfyui:latest
+
+COPY models/checkpoints /opt/comfyui/models/checkpoints
+COPY models/embeddings /opt/comfyui/models/embeddings
+COPY models/loras /opt/comfyui/models/loras
+COPY models/vae /opt/comfyui/models/vae
 
 RUN pip install Flask \
   && git clone https://github.com/TemryL/ComfyS3 /opt/comfyui/custom_nodes/comfys3 \
@@ -12,7 +17,5 @@ RUN pip install Flask \
 COPY waifuwave.py .
 COPY fetch_models.py .
 COPY startup.sh .
-
-COPY models /opt/comfyui/models
 
 CMD ["/opt/comfyui/startup.sh"]
