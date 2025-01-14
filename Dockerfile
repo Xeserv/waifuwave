@@ -13,4 +13,6 @@ COPY waifuwave.py .
 COPY fetch_models.py .
 COPY startup.sh .
 
+COPY models /opt/comfyui/models
+
 CMD ["/opt/comfyui/startup.sh"]
