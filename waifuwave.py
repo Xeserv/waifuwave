@@ -273,6 +273,11 @@ def read_root():
     return jsonify({"Hello": "World"})
 
 
+@app.route("/health-check", methods=["GET"])
+def health_check():
+    return jsonify({"status": "READY"})
+
+
 @app.route("/generate", methods=["POST"])
 def generate():
     content_type = request.headers.get('Content-Type')
