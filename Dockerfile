@@ -1,9 +1,11 @@
+FROM anu-registry.fly.dev/models/waifuwave AS models
+
 FROM anu-registry.fly.dev/runners/comfyui:latest
 
-COPY models/checkpoints /opt/comfyui/models/checkpoints
-COPY models/embeddings /opt/comfyui/models/embeddings
-COPY models/loras /opt/comfyui/models/loras
-COPY models/vae /opt/comfyui/models/vae
+COPY --link --from=models /opt/comfyui/models/checkpoints /opt/comfyui/models/checkpoints
+COPY --link --from=models /opt/comfyui/models/embeddings /opt/comfyui/models/embeddings
+COPY --link --from=models /opt/comfyui/models/loras /opt/comfyui/models/loras
+COPY --link --from=models /opt/comfyui/models/vae /opt/comfyui/models/vae
 
 RUN pip install Flask \
   && git clone https://github.com/TemryL/ComfyS3 /opt/comfyui/custom_nodes/comfys3 \
